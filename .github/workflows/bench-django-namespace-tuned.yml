@@ -1,0 +1,20 @@
+name: bench-django-namespace-tuned
+on:
+  workflow_dispatch:
+jobs:
+  tests:
+    runs-on: namespace-profile-asgar
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      # Namespace runner profile must have caching enabled (out-of-band config).
+      - uses: namespacelabs/nscloud-cache-action@v1
+        with:
+          cache: |
+            ~/.cache/pip
+      - run: |
+          python -m pip install -e .
+          python -m pip install -r tests/requirements/py3.txt
+      - run: python tests/runtests.py
