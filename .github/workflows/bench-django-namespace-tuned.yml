@@ -9,10 +9,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      # Namespace runner profile must have caching enabled (out-of-band config).
-      - uses: namespacelabs/nscloud-cache-action@v1
-        with:
-          cache: python
+          cache: 'pip'
+          cache-dependency-path: tests/requirements/py3.txt
       - name: Install libmemcached-dev for pylibmc
         run: sudo apt-get update && sudo apt-get install -y libmemcached-dev
       - run: |

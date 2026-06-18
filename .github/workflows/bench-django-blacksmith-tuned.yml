@@ -9,10 +9,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - uses: useblacksmith/cache@v5
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('tests/requirements/py3.txt') }}
+          cache: 'pip'
+          cache-dependency-path: tests/requirements/py3.txt
       - name: Install libmemcached-dev for pylibmc
         run: sudo apt-get update && sudo apt-get install -y libmemcached-dev
       - run: |
